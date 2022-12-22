@@ -18,12 +18,18 @@ app.use("/api/users", require("./routes/userRoutes"))
 app.use("/api/tickets", require("./routes/ticketRoutes"))
 app.use(errorHandler)
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname, "../frontend/build")))
+// if(process.env.NODE_ENV === 'production'){
+//   app.use(express.static(path.join(__dirname, "../frontend/build")))
 
-  app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+//   app.get('*', (_, res) => {
+//     res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+//   })
+// }
+
+app.get("*", (req, res) => {
+  res.json({
+    message: "404 NOT FOUND!"
   })
-}
+})
 
 app.listen(PORT, () => console.log(`SERVER STARTED ON PORT ${PORT}`))
